@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/coinfolio/static/css/main.78677513.css",
-    "main.js": "/coinfolio/static/js/main.72f42842.js",
+    "main.js": "/coinfolio/static/js/main.33700059.js",
     "index.html": "/coinfolio/index.html",
     "main.78677513.css.map": "/coinfolio/static/css/main.78677513.css.map",
-    "main.72f42842.js.map": "/coinfolio/static/js/main.72f42842.js.map"
+    "main.33700059.js.map": "/coinfolio/static/js/main.33700059.js.map"
   },
   "entrypoints": [
     "static/css/main.78677513.css",
-    "static/js/main.72f42842.js"
+    "static/js/main.33700059.js"
   ]
 }
