@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Portolio from "./components/Portolio";
+import Transactions from "./routes/Transactions";
 
 function App() {
+  const [coins, setCoins] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Portolio
+              coins={coins}
+              setCoins={setCoins}
+              transactions={transactions}
+              setTransactions={setTransactions}
+            />
+          }
+        />
+
+        <Route
+          path="/transactions"
+          element={
+            <Transactions
+              coins={coins}
+              setCoins={setCoins}
+              transactions={transactions}
+              setTransactions={setTransactions}
+            />
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route path=":coinId" element={<Transactions />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 

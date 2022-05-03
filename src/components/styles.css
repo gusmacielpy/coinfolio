@@ -1,0 +1,68 @@
+a:link {
+  color: #f4f4f4;
+  text-decoration: none;
+}
+
+h1 {
+  color: #f4f4f4;
+}
+
+.formattedNum-btn {
+  cursor: pointer;
+  color: #f4f4f4;
+}
+
+.formattedNum-btn:hover {
+  color: cornflowerblue;
+}
+.control-label:after {
+  content: "*";
+  color: red;
+}
+.navBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon {
+  font-size: 2rem;
+  color: #6900ff;
+}
+.purple {
+  color: #6900ff;
+}
+
+.openModalBtn {
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  background-color: #429BBD;
+  color: white;
+  cursor: pointer;
+}
+
+.openModalBtn:hover{
+  background-color: #31647A;
+}
+
+.dataColor{
+  color: red;
+}
+
+.link{
+  color:#429BBD;
+}
+
+
+.link:hover{
+  color: #31647A;
+}
+
+.openModalLink{
+  color: white;
+}
+
+.infoTxt{
+  font-size:medium;
+}
