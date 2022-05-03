@@ -23,7 +23,7 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("token");
     setlogged(false);
-    window.location.href = "/";
+    window.location.href = "/coinfolio";
   };
   return (
     <>

@@ -40,7 +40,7 @@ const LoginForm = ({ setModalLogin }) => {
         .then((res) => {
           if (res.data.user) {
             localStorage.setItem("token", res.data.user);
-            window.location.href = "/";
+            window.location.href = "/coinfolio";
           } else {
             alert("Por favor verifica tu usuario y contraseña...");
           }
