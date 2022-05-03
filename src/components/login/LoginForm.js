@@ -12,7 +12,7 @@ const LoginForm = ({ setModalLogin }) => {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:4000/api/users", {
+        .post("https://app-criptofolio.herokuapp.com/api/users", {
           email,
           password,
         })
@@ -33,7 +33,7 @@ const LoginForm = ({ setModalLogin }) => {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:4000/api/users/login", {
+        .post("https://app-criptofolio.herokuapp.com/api/users/login", {
           email,
           password,
         })
