@@ -9,12 +9,14 @@ import { Link } from "react-router-dom";
 import LoginForm from "./login/LoginForm";
 import Spinner from "react-bootstrap/esm/Spinner";
 import { getUser } from "../utils/functions";
+import HandleTransaction from "./transactions/HandleTransaction";
 
 const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
   const [modalSearch, setModalSearch] = useState(false);
   const [logged, setlogged] = useState(false);
   const [modalLogin, setModalLogin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [newTransaction, setNewTransaction] = useState([]);
 
   useEffect(() => {
     const getDataFromSvr = async () => {
@@ -46,6 +48,18 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
     e.preventDefault();
     setModalLogin(true);
   };
+
+  const handleNewTransaction = (idCoin, name, symbol, price) => {
+    setNewTransaction({
+      idCoin,
+      name,
+      symbol,
+      price,
+      quantity: 0,
+      dateTime: "",
+      type: "",
+    });
+  };
   return (
     <>
       <div className="App">
@@ -71,6 +85,7 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
               setModalSearch={setModalSearch}
               coins={coins}
               setCoins={setCoins}
+              handleNewTransaction={handleNewTransaction}
             />
           )}
           <div className="row">
@@ -130,6 +145,15 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
         </div>
       </div>
       {modalLogin && <LoginForm setModalLogin={setModalLogin} />}
+      {newTransaction.name && (
+        <HandleTransaction
+          setHandleTransaction={setNewTransaction}
+          handleTransaction={newTransaction}
+          setTransactions={setTransactions}
+          transactions={transactions}
+          action={"new"}
+        />
+      )}
     </>
   );
 };

@@ -152,7 +152,7 @@ const TransactionsTable = ({
     {
       columns,
       data: filteredTransactions,
-      initialState: { pageIndex: 0, pageSize: 4 },
+      initialState: { pageIndex: 0, pageSize: 10 },
     },
     usePagination
   );

@@ -5,10 +5,17 @@ import CoinRow from "./CoinRow";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/esm/Spinner";
 import CloseButton from "react-bootstrap/esm/CloseButton";
-import { roundToTwo, getUser } from "../../utils/functions";
-import jwt_decode from "jwt-decode";
+import { roundToTwo, getUser, filterItems } from "../../utils/functions";
 
-const CoinSearching = ({ modalSearch, setModalSearch, coins, setCoins }) => {
+const user = getUser();
+
+const CoinSearching = ({
+  modalSearch,
+  setModalSearch,
+  coins,
+  setCoins,
+  handleNewTransaction,
+}) => {
   const [tenCoins, setTenCoins] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -41,7 +48,6 @@ const CoinSearching = ({ modalSearch, setModalSearch, coins, setCoins }) => {
         `https://api.coingecko.com/api/v3/coins/${newCoin}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true`
       );
       if (res.data.id) {
-        const user = getUser();
         const newCoin = {
           user,
           id: res.data.id,
@@ -62,8 +68,22 @@ const CoinSearching = ({ modalSearch, setModalSearch, coins, setCoins }) => {
           ),
           sparkline_7d: res.data.market_data.sparkline_7d.price,
         };
-        saveCoin(newCoin);
-        setCoins([...coins, newCoin]);
+
+        const existAlready = filterItems(coins, {
+          user: user,
+          symbol: newCoin.symbol,
+        });
+        if (existAlready.length === 0) {
+          saveCoin(newCoin);
+          setCoins([...coins, newCoin]);
+        } else {
+          handleNewTransaction(
+            existAlready[0].id,
+            existAlready[0].name,
+            existAlready[0].symbol,
+            existAlready[0].current_price
+          );
+        }
       }
     } catch (error) {
       console.log(error);

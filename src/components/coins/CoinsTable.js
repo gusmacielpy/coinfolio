@@ -144,7 +144,7 @@ const CoinsTable = ({ coins, setCoins, setTransactions, transactions }) => {
     state,
     prepareRow,
   } = useTable(
-    { columns, data: coins, initialState: { pageIndex: 0, pageSize: 4 } },
+    { columns, data: coins, initialState: { pageIndex: 0, pageSize: 10 } },
     usePagination
   );
 
