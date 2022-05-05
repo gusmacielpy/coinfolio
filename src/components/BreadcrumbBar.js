@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const BreadcrumbBar = ({ coin }) => {
   return (
-    <div class="container mt-4 ps-0">
-      <Breadcrumb className="link">
+    <div className="container mt-4 ps-0">
+      <Breadcrumb>
         <Breadcrumb.Item>
           <Link to="/" className="link">
             Inicio

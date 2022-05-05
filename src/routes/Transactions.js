@@ -5,7 +5,7 @@ import TransactionsTable from "../components/transactions/TransactionsTable";
 import HandleTransaction from "../components/transactions/HandleTransaction";
 import Navbar from "../components/Navbar";
 import TransactionsInfoCards from "../components/transactions/TransactionsInfoCards";
-import { getQtty, getUser } from "../utils/functions";
+import { getUser } from "../utils/functions";
 import Spinner from "react-bootstrap/esm/Spinner";
 import BreadcrumbBar from "../components/BreadcrumbBar";
 
@@ -42,14 +42,12 @@ const Transactions = ({ coins, setCoins, transactions, setTransactions }) => {
   }, [coins, setCoinData, params.coinId, setCoins, setTransactions]);
 
   const handleNewTransaction = (idCoin, name, symbol, price) => {
-    const quantity = getQtty(transactions, symbol);
     setNewTransaction({
-      id: transactions.length + 1,
       idCoin,
       name,
       symbol,
       price,
-      quantity,
+      quantity: 0,
       dateTime: "",
       type: "",
     });

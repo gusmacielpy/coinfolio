@@ -1,12 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getQtty, toFix2 } from "../../utils/functions";
+import { getQtty, toFix2, getUser } from "../../utils/functions";
+
+const user = getUser();
 
 const HoldingCoins = ({ coin, transactions }) => {
   const [holdingCoin, setHoldingCoin] = useState([]);
 
   useEffect(() => {
-    const quantity = getQtty(transactions, coin.symbol);
+    const quantity = getQtty(transactions, coin.symbol, user);
     setHoldingCoin({
       quantity,
       holding: quantity * parseFloat(coin.current_price),

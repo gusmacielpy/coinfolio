@@ -1,9 +1,31 @@
 import jwt_decode from "jwt-decode";
 
-export function getQtty(transactions, symbol) {
-  const coinTransactions = transactions.filter(
-    (transaction) => transaction.symbol === symbol
-  );
+export function excludeItems(array, filter) {
+  const items = array.filter(function (item) {
+    for (var key in filter) {
+      if (item[key] === undefined || item[key] !== filter[key]) return true;
+    }
+    return false;
+  });
+  return items;
+}
+
+export function filterItems(array, filter) {
+  const items = array.filter(function (item) {
+    for (var key in filter) {
+      if (item[key] === undefined || item[key] !== filter[key]) return false;
+    }
+    return true;
+  });
+  return items;
+}
+
+export function getQtty(transactions, symbol, user) {
+  const coinTransactions = filterItems(transactions, {
+    user: user,
+    symbol: symbol,
+  });
+
   let quantity = 0;
   coinTransactions.forEach((coin) => {
     if (coin.type === "compra" || coin.type === "transf entrante") {
@@ -203,6 +225,7 @@ export function getCoinCost(transactions, coin) {
 
 export function getUser() {
   const token = localStorage.getItem("token");
+  if (!token) return false;
   const user = jwt_decode(token);
   return user.email;
 }

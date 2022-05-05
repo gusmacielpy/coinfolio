@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import CloseButton from "react-bootstrap/esm/CloseButton";
+import { getUser, excludeItems } from "../../utils/functions";
 
 const DeleteCoin = ({
   coinDelete,
@@ -17,35 +18,40 @@ const DeleteCoin = ({
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const user = getUser();
+    try {
+      await axios.delete(
+        `https://app-criptofolio.herokuapp.com/api/coins/${user}/${coinDelete.symbol}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      await axios.delete(
+        `https://app-criptofolio.herokuapp.com/api/transactions/deletetransactions/${user}/${coinDelete.symbol}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
 
-    try {
-      await axios.delete(
-        "https://app-criptofolio.herokuapp.com/api/coins/" + coinDelete.symbol
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    try {
-      await axios.delete(
-        "https://app-criptofolio.herokuapp.com/api/transactions/no/" +
-          coinDelete.symbol
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    const validTransactions = transactions.filter(
-      (transaction) => transaction.symbol !== coinDelete.symbol
-    );
-    const validCoins = coins.filter(
-      (coin) => coin.symbol !== coinDelete.symbol
-    );
+    const validTransactions = excludeItems(transactions, {
+      user: user,
+      symbol: coinDelete.symbol,
+    });
+    const validCoins = excludeItems(coins, {
+      user: user,
+      symbol: coinDelete.symbol,
+    });
+
+    console.log(validCoins);
+    console.log(validTransactions);
     await setTransactions(validTransactions);
     await setCoins(validCoins);
     handleClose();
   };
 
   return (
-    <Modal show={true} animation={false} onHide={handleClose}>
+    <Modal show={true} animation={false} onHide={handleClose} centered>
       <Modal.Header className="bg-dark border-0 pb-0">
         <Modal.Title>
           <h5 className="modal-title">Eliminar criptomoneda</h5>

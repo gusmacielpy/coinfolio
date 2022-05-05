@@ -124,7 +124,7 @@ const TransactionsTable = ({
             <FaRegTrashAlt
               className="fs-6 mx-1 formattedNum-btn"
               alt="Eliminar moneda"
-              onClick={() => setTransactionDelete(row.id)}
+              onClick={() => setTransactionDelete(row._id)}
             />
           </div>
         ),
@@ -250,7 +250,7 @@ const TransactionsTable = ({
           </button>{" "}
         </div>
       </div>
-      {editTransaction.id && (
+      {editTransaction._id && (
         <HandleTransaction
           handleTransaction={editTransaction}
           setHandleTransaction={setEditTransaction}

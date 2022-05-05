@@ -4,15 +4,18 @@ import {
   toFix2,
   getCoinPNL,
   getCoinCost,
+  getUser,
 } from "../../utils/functions";
 import InfoCards from "../InfoCards";
+
+const user = getUser();
 
 const TransactionsInfoCards = ({ coinData, transactions }) => {
   const [infoCoins, setInfoCoins] = useState([]);
 
   useEffect(() => {
     if (coinData) {
-      const quantity = getQtty(transactions, coinData.symbol);
+      const quantity = getQtty(transactions, coinData.symbol, user);
       const totalCost = getCoinCost(transactions, coinData.symbol);
       const totalPNL = getCoinPNL(coinData, transactions);
 

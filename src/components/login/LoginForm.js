@@ -54,7 +54,7 @@ const LoginForm = ({ setModalLogin }) => {
     setModalLogin(false);
   };
   return (
-    <Modal show={true} animation={false} onHide={handleClose}>
+    <Modal show={true} animation={false} onHide={handleClose} centered>
       <Modal.Header className="bg-dark border-0 pb-0">
         <CloseButton variant="white" onClick={handleClose} />
       </Modal.Header>

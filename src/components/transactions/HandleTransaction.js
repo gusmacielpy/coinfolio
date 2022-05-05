@@ -17,7 +17,7 @@ const HandleTransaction = ({
   const handleClose = () => setHandleTransaction([]);
 
   return (
-    <Modal show={true} animation={false} onHide={handleClose}>
+    <Modal show={true} animation={false} onHide={handleClose} centered>
       <Modal.Header className="bg-dark border-0 pb-0">
         <Modal.Title>
           <h5 className="modal-title">

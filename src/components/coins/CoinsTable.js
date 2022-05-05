@@ -4,7 +4,6 @@ import HandleTransaction from "../transactions/HandleTransaction";
 import { FaPlus, FaListUl, FaRegTrashAlt } from "react-icons/fa";
 import HoldingCoins from "./HoldingCoins";
 import DeleteCoin from "./DeleteCoin";
-import { getQtty } from "../../utils/functions";
 import { Link } from "react-router-dom";
 import Transactions from "../../routes/Transactions";
 
@@ -139,14 +138,12 @@ const CoinsTable = ({ coins, setCoins, setTransactions, transactions }) => {
   );
 
   const handleNewTransaction = (idCoin, name, symbol, price) => {
-    const quantity = getQtty(transactions, symbol);
     setNewTransaction({
-      id: transactions.length + 1,
       idCoin,
       name,
       symbol,
       price,
-      quantity,
+      quantity: 0,
       dateTime: "",
       type: "",
     });

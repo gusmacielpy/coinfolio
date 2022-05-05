@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import CloseButton from "react-bootstrap/esm/CloseButton";
+import { getUser, excludeItems } from "../../utils/functions";
 
 const DeleteTransaction = ({
   transactionDelete,
@@ -15,25 +16,25 @@ const DeleteTransaction = ({
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const user = getUser();
     try {
       await axios.delete(
-        "https://app-criptofolio.herokuapp.com/api/transactions/" +
-          transactionDelete +
-          "/&"
+        `https://app-criptofolio.herokuapp.com/api/transactions/deletetransaction/${user}/${transactionDelete}`
       );
     } catch (error) {
       console.log(error);
     }
 
-    const validTransactions = transactions.filter(
-      (transaction) => transaction.id !== transactionDelete
-    );
+    const validTransactions = excludeItems(transactions, {
+      user: user,
+      _id: transactionDelete,
+    });
     await setTransactions(validTransactions);
     handleClose();
   };
 
   return (
-    <Modal show={true} animation={false} onHide={handleClose}>
+    <Modal show={true} animation={false} onHide={handleClose} centered>
       <Modal.Header className="bg-dark border-0 pb-0">
         <Modal.Title>
           <h5 className="modal-title">Eliminar Transacción</h5>

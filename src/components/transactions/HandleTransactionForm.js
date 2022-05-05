@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DateTimePicker from "react-datetime-picker";
-import { getUser } from "../../utils/functions";
+import { getUser, getQtty } from "../../utils/functions";
+
+const user = getUser();
 
 const HandleTransactionForm = ({
   handleTransaction,
@@ -24,7 +26,6 @@ const HandleTransactionForm = ({
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const user = getUser();
     const formTransaction = {
       user,
       ...handleTransaction,
@@ -34,17 +35,17 @@ const HandleTransactionForm = ({
       type:
         transfType !== ""
           ? transfType
-          : handleTransaction.type !== ""
+          : formType === "transfer"
           ? handleTransaction.type
           : formType,
     };
     if (action === "new") {
-      saveTransaction(formTransaction);
-      await setTransactions([...transactions, formTransaction]);
+      const dataWithId = await saveTransaction(formTransaction);
+      await setTransactions([...transactions, dataWithId]);
     }
     if (action === "edit") {
       const updatedTransactions = transactions.map((transaction) =>
-        transaction.id === handleTransaction.id
+        transaction._id === handleTransaction._id
           ? formTransaction
           : { ...transaction }
       );
@@ -56,11 +57,14 @@ const HandleTransactionForm = ({
 
   const saveTransaction = async (data) => {
     try {
-      await axios
+      const dataWithId = await axios
         .post("https://app-criptofolio.herokuapp.com/api/transactions", {
           data,
         })
-        .then((res) => console.log(res));
+        .then((res) => {
+          return { _id: res.data.newId, ...data };
+        });
+      return dataWithId;
     } catch (error) {
       console.log(error);
     }
@@ -69,9 +73,7 @@ const HandleTransactionForm = ({
   const updateTransaction = async (data) => {
     try {
       await axios.put(
-        "https://app-criptofolio.herokuapp.com/api/transactions/" +
-          handleTransaction.id +
-          "/&",
+        `https://app-criptofolio.herokuapp.com/api/transactions/${user}/${handleTransaction._id}`,
         data
       );
     } catch (error) {
@@ -144,9 +146,11 @@ const HandleTransactionForm = ({
             </label>
             {formType !== "transfer" && (
               <label htmlFor="totalMonedas">
-                {`Balance: ${
-                  handleTransaction.quantity
-                }${handleTransaction.symbol.toUpperCase()}`}
+                {`Balance: ${getQtty(
+                  transactions,
+                  handleTransaction.symbol,
+                  user
+                )}${handleTransaction.symbol.toUpperCase()}`}
               </label>
             )}
           </div>
@@ -172,7 +176,11 @@ const HandleTransactionForm = ({
               >
                 <button
                   type="button"
-                  onClick={() => setQuantity(handleTransaction.quantity)}
+                  onClick={() =>
+                    setQuantity(
+                      getQtty(transactions, handleTransaction.symbol, user)
+                    )
+                  }
                   className="btn btn-success btn-sm"
                 >
                   MAX
