@@ -38,7 +38,7 @@ const CoinSearching = ({ modalSearch, setModalSearch, coins, setCoins }) => {
   const handleNewCoin = async (newCoin) => {
     try {
       const res = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/${newCoin}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`
+        `https://api.coingecko.com/api/v3/coins/${newCoin}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true`
       );
       if (res.data.id) {
         const user = getUser();
@@ -60,6 +60,7 @@ const CoinSearching = ({ modalSearch, setModalSearch, coins, setCoins }) => {
           change_7d: roundToTwo(
             res.data.market_data.price_change_percentage_7d_in_currency.usd
           ),
+          sparkline_7d: res.data.market_data.sparkline_7d.price,
         };
         saveCoin(newCoin);
         setCoins([...coins, newCoin]);

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
+import { Sparklines, SparklinesLine } from "react-sparklines";
 import HandleTransaction from "../transactions/HandleTransaction";
 import { FaPlus, FaListUl, FaRegTrashAlt } from "react-icons/fa";
 import HoldingCoins from "./HoldingCoins";
@@ -77,6 +78,16 @@ const CoinsTable = ({ coins, setCoins, setTransactions, transactions }) => {
         ),
         className: "text-center",
       },
+      {
+        Header: "Últimos 7 días",
+        accessor: (row) => (
+          <Sparklines data={row.sparkline_7d}>
+            <SparklinesLine color={`${row.change_7d < 0 ? "red" : "green"}`} />
+          </Sparklines>
+        ),
+        className: "text-center",
+      },
+
       {
         Header: "Activos",
         accessor: (row) => (
