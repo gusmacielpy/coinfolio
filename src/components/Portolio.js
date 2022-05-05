@@ -22,11 +22,6 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
     const getDataFromSvr = async () => {
       try {
         const user = getUser();
-        if (user === "test@test.com") {
-          await axios.post(
-            "https://app-criptofolio.herokuapp.com/api/users/log/1"
-          );
-        }
         await axios
           .get("https://app-criptofolio.herokuapp.com/api/coins/" + user)
           .then((res) => setCoins(res.data));
