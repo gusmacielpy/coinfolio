@@ -117,6 +117,11 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
                       </span>
                     </div>
                     <div className="d-flex aligns-items-center justify-content-center">
+                      <span className="infoTxtSmaller">
+                        usuario: test@test.com contraseña: 12345
+                      </span>
+                    </div>
+                    <div className="d-flex aligns-items-center justify-content-center">
                       <span className="infoTxt">
                         <Link
                           to="/"
