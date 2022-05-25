@@ -148,7 +148,7 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
             </div>
           </div>
         </div>
-        <footer className="footer bg-warning">
+        <footer className="footer bg-warning m-0 p-0">
           <div
             className="text-center p-3"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
