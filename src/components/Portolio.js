@@ -147,6 +147,15 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
               )}
             </div>
           </div>
+          <footer className="footer bg-warning m-0 p-0">
+            <div
+              className="text-center p-3"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
+            >
+              © 2022 Copyright:&nbsp;
+              <a href="https://github.com/eggodev">eggodev</a>
+            </div>
+          </footer>
         </div>
       </div>
       {modalLogin && <LoginForm setModalLogin={setModalLogin} />}
@@ -159,15 +168,6 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
           action={"new"}
         />
       )}
-      <footer className="footer bg-warning m-0 p-0">
-        <div
-          className="text-center p-3"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-        >
-          © 2022 Copyright:&nbsp;
-          <a href="https://github.com/eggodev">eggodev</a>
-        </div>
-      </footer>
     </>
   );
 };
