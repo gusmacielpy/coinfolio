@@ -63,7 +63,7 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
   return (
     <>
       <div className="App">
-        <div className="container mb-4 d-flex flex-column min-vh-100">
+        <div className="container d-flex flex-column min-vh-100">
           <Navbar />
           <div className="row align-items-center g-3 justify-content-between mb-3">
             <CoinsInfoCards coins={coins} transactions={transactions} />
