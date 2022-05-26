@@ -63,7 +63,7 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
   return (
     <>
       <div className="App">
-        <div className="container mb-4">
+        <div className="container mb-4 d-flex flex-column min-vh-100">
           <Navbar />
           <div className="row align-items-center g-3 justify-content-between mb-3">
             <CoinsInfoCards coins={coins} transactions={transactions} />
@@ -147,13 +147,13 @@ const Portolio = ({ coins, setCoins, transactions, setTransactions }) => {
               )}
             </div>
           </div>
+          <footer className="footer mt-auto">
+            <div className="text-center p-3">
+              © 2022 Copyright:&nbsp;
+              <a href="https://github.com/eggodev">eggodev</a>
+            </div>
+          </footer>
         </div>
-        <footer className="footer">
-          <div className="text-center p-3">
-            © 2022 Copyright:&nbsp;
-            <a href="https://github.com/eggodev">eggodev</a>
-          </div>
-        </footer>
       </div>
       {modalLogin && <LoginForm setModalLogin={setModalLogin} />}
       {newTransaction.name && (
