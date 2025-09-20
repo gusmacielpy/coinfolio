@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useTable, usePagination } from "react-table";
 import Table from "react-bootstrap/Table";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-import HandleTransaction from "./HandleTransaction";
-import DeleteTransaction from "./DeleteTransaction";
-import { toFix2, getTransactionPNL } from "../../utils/functions";
+import HandleTransaction from "../HandleTransaction";
+import DeleteTransaction from "../DeleteTransaction";
+import { toFix2, getTransactionPNL } from "../../../utils/functions";
 
 const TransactionsTable = ({
   coinId,
