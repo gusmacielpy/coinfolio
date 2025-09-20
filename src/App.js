@@ -1,38 +1,15 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Portolio from "./components/Portolio";
-import Transactions from "./routes/Transactions";
+import Portfolio from "./pages/Portfolio";
+import Transactions from "./pages/Transactions";
 
 function App() {
-  const [coins, setCoins] = useState([]);
-  const [transactions, setTransactions] = useState([]);
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Portolio
-              coins={coins}
-              setCoins={setCoins}
-              transactions={transactions}
-              setTransactions={setTransactions}
-            />
-          }
-        />
-
-        <Route
-          path="/transactions"
-          element={
-            <Transactions
-              coins={coins}
-              setCoins={setCoins}
-              transactions={transactions}
-              setTransactions={setTransactions}
-            />
-          }
-        >
+        <Route path="/" element={<Portfolio />} />
+        <Route path="/transactions" element={<Transactions />}>
           <Route path=":coinId" element={<Transactions />} />
         </Route>
       </Routes>

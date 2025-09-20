@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import axios from "axios";
 import { getUser } from "../utils/functions";
+import { coinsService, transactionsService } from "../services/api";
 
 const AppContext = createContext();
 
@@ -35,30 +35,53 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const userData = getUser();
     dispatch({ type: "SET_USER", payload: userData });
-    if (userData) {
-      fetchCoins();
-      fetchTransactions();
-    }
+    fetchCoins();
+    if (userData) fetchTransactions(userData);
   }, []);
 
   const fetchCoins = async () => {
     dispatch({ type: "SET_LOADING", payload: true });
     try {
-      const result = await axios("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd");
-      dispatch({ type: "SET_COINS", payload: result.data });
+      const coins = await coinsService.getMarketCoins();
+      dispatch({ type: "SET_COINS", payload: coins });
+      clearError();
     } catch (error) {
-      dispatch({ type: "SET_ERROR", payload: error.message });
+      setError(error.message);
     }
     dispatch({ type: "SET_LOADING", payload: false });
   };
 
-  const fetchTransactions = async () => {
-    // Aquí iría el fetch real de transacciones del usuario
-    dispatch({ type: "SET_TRANSACTIONS", payload: [] });
+  const fetchTransactions = async (user) => {
+    dispatch({ type: "SET_LOADING", payload: true });
+    try {
+      const transactions = await transactionsService.getUserTransactions(user);
+      dispatch({ type: "SET_TRANSACTIONS", payload: transactions });
+      clearError();
+    } catch (error) {
+      setError(error.message);
+    }
+    dispatch({ type: "SET_LOADING", payload: false });
+  };
+
+  const setError = (message) => {
+    dispatch({ type: "SET_ERROR", payload: message });
+  };
+
+  const clearError = () => {
+    dispatch({ type: "SET_ERROR", payload: null });
   };
 
   return (
-    <AppContext.Provider value={{ ...state, dispatch, fetchCoins, fetchTransactions }}>
+    <AppContext.Provider
+      value={{
+        ...state,
+        dispatch,
+        fetchCoins,
+        fetchTransactions,
+        setError,
+        clearError,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

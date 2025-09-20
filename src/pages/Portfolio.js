@@ -1,45 +1,30 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import CoinSearching from "../components/coins/CoinSearching";
 import CoinsTable from "../components/coins/CoinsTable";
 import Navbar from "../components/common/Navbar";
 import CoinsInfoCards from "../components/coins/CoinsInfoCards";
-import Unlogged from "../assets/unlogged";
-import { Link } from "react-router-dom";
 import LoginForm from "../components/auth/LoginForm";
 import Spinner from "react-bootstrap/esm/Spinner";
-import { getUser } from "../utils/functions";
 import HandleTransaction from "../components/transactions/HandleTransaction";
+import { useAppContext } from "../context/AppContext";
 
-const Portfolio = ({ coins, setCoins, transactions, setTransactions }) => {
+const Portfolio = () => {
+  const {
+    user,
+    coins,
+    transactions,
+    loading,
+    fetchCoins,
+    fetchTransactions,
+  } = useAppContext();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCoins, setFilteredCoins] = useState(coins);
-  const [user, setUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const result = await axios(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
-        );
-        setCoins(result.data);
-        setFilteredCoins(result.data);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-      setLoading(false);
-    };
-
-    fetchData();
-  }, [setCoins]);
-
-  useEffect(() => {
-    const userData = getUser();
-    setUser(userData);
-  }, []);
+  React.useEffect(() => {
+    setFilteredCoins(coins);
+  }, [coins]);
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -54,17 +39,12 @@ const Portfolio = ({ coins, setCoins, transactions, setTransactions }) => {
   };
 
   const handleLogin = (userData) => {
-    setUser(userData);
     setShowLogin(false);
   };
 
-  const handleLogout = () => {
-    setUser(null);
-  };
+  const handleLogout = () => {};
 
-  const handleTransactionComplete = (transactionData) => {
-    setTransactions((prev) => [...prev, transactionData]);
-  };
+  const handleTransactionComplete = (transactionData) => {};
 
   return (
     <div>
